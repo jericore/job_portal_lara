@@ -13,6 +13,19 @@
                       <input type="text" name="title" class="form-control">
                       <button type="submit" class="btn btn-success">Submit</button>
                     </form>
+                    <?php var_dump($users); ?>
+
+                    @if (count($users) >= 1)
+                    <ul>
+                      @foreach($users as $user)
+                        <li>{{$user}}</li>
+                      @endforeach
+                    <ul>
+                    @else
+                    <ul>
+                      <li>Ga ada Datanya</li>
+                    </ul>
+                    @endif
                 </div>
             </div>
         </div>

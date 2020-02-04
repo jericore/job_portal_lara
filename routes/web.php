@@ -23,3 +23,12 @@ Route::prefix('latihan')->group(function(){
   Route::get('nyoba', 'TaskController@create');
   Route::post('inputan','TaskController@store')->name('jobs.store');
 });
+
+Route::get('/users', function(){
+  $users = [
+    'jerico',
+    'reynaldi',
+    'erik'
+  ];
+  return view('home', compact('users'));
+});
