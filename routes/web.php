@@ -32,3 +32,6 @@ Route::get('/users', function(){
   ];
   return view('home', compact('users'));
 });
+
+Route::get('/user', 'TaskController@index');
+Route::get('/user/{id}', 'TaskController@detail');
