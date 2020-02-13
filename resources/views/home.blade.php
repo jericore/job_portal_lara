@@ -26,6 +26,9 @@
                       <li>Ga ada Datanya</li>
                     </ul>
                     @endif
+
+                    <p>{{Auth::user()->name}}</p>
+                    <p>{{Auth::user()->profilee->address}}</p>
                 </div>
             </div>
         </div>

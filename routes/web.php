@@ -10,10 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Post;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -35,3 +36,158 @@ Route::get('/users', function(){
 
 Route::get('/user', 'TaskController@index');
 Route::get('/user/{id}', 'TaskController@detail');
+Route::get('/post', function(){
+  // $post = new Post;
+  // $post->title = "a title";
+  // $post->description = "a desc";
+  // $post->save(); --> Cara Pertama
+
+  // Post::create([
+  //   'title'       => 'a title again',
+  //   'description' => 'a new desc again'
+  // ]); --> Cara Kedua
+
+  //KALO MAU NYARI
+  // $posts = Post::find(1);
+  // return $posts;
+
+  //Kalo Mau Update
+});
+
+Route::get('/', function () {
+    return view('pages.home');
+});
+
+Route::get('/about', function () {
+    return view('pages.about');
+});
+
+// Route::get('/contact', function () {
+//     return view('pages.contact');
+// });
+
+Route::get('/contact','ContactController@index')->name('contact.view');
+
+Route::get('/helper', function(){
+  $sentences = 'The QUick Brown fox Jumos over the lazy dog.';
+
+  echo str_limit($sentences,20,'----');
+});
+
+Route::get('/helperr', function(){
+  $sentences = 'Car';
+
+  echo str_plural($sentences);
+});
+
+Route::get('/helper_3', function(){
+  $sentences = 'pens';
+
+  echo str_singular($sentences);
+});
+
+Route::get('/array', function(){
+  $array = [
+    'name'      => 'Jerico Reynaldi',
+    'array_lagi'=> ['array1','array2'],
+    'age'       => 22
+  ];
+  $array = array_add($array,'country','USA');
+  $array = array_add($array,'number',9898);
+  dd($array);
+});
+
+Route::get('/array2', function(){
+  $array = [
+    'name'    => ['Jerico Reynaldi','dul boy moyi' => ['anaknya puput'],'tes' => ['tesu','tesi',[1,2,[4,5,6,['jadi objek','jadi objek kedua']]]]],
+    'age'     => 22
+  ];
+
+  // $array = array_divide($array);
+  // dd($array);
+  dd($array['name']);
+});
+
+Route::get('/array3', function(){
+  $array = [
+    ['1','2','3','4'],
+    ['5','6','7'],
+  ];
+
+  $array = array_collapse($array);
+  dd($array);
+});
+
+Route::get('/array4', function(){
+  $array = ['name'=>'sampo','price'=>50];
+
+  $array = array_except($array,['price']);
+  dd($array);
+});
+
+Route::get('/array5', function(){
+  $_conf['db']['payslip']['host'] 	= '192.168.1.24';
+
+  // $array = array_except($array,['price']);
+  dd($_conf);
+});
+
+
+
+Route::get('/collect', function(){
+  $array = collect([1,2,3,4,5,6,7,8,9]);
+  // $array = [1,2,3,4,5,6,7,8,9];
+  dd($array->sum());
+  var_dump($array);die;
+});
+
+
+Route::get('/contains', function(){
+  $data =collect([['role' => 'admin'],
+['role' => 'supervisor'],
+['role' => 'editor']]);
+  // dd($array->sum());
+  // var_dump($array);die;
+  dd($data->pluck('role')->contains('editor'));
+});
+
+Route::get('/filter', function(){
+  $data = collect([1,2,3,4,5,6]);
+  $filtered = $data->filter(function($value,$key){
+    return $value>2;
+  });
+  dd($filtered->all());
+});
+
+Route::get('/filter_2', function(){
+  $collection = collect([
+    [
+      'User_id'         => '1',
+      'name'            => 'Jerico Reynaldi',
+      'email'           => 'jerico@gmail.com',
+      'address'         => 'USA'
+    ],
+    [
+      'User_id'         => '2',
+      'name'            => 'Jerico',
+      'email'           => 'jer@gmail.com',
+      'address'         => 'UK'
+    ],
+    [
+      'User_id'         => '3',
+      'name'            => 'Je',
+      'email'           => 'je@gmail.com',
+      'address'         => 'USA'
+    ],
+  ]);
+  $filtered = $collection->filter(function($value,$key){
+    if ($value['User_id'] == 2) {
+          return true;
+    }
+  });
+  dd($filtered->all());
+});
+
+Route::get('/onetoone','TaskController@onetoone');
+Route::get('/onetomany','TaskController@onetomany');
+Route::get('/manytoone','TaskController@manytoone');
