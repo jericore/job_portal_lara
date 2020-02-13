@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class TaskController extends Controller
 {
@@ -11,6 +12,29 @@ class TaskController extends Controller
   {
     $user = User::paginate(3);
     return view('paginate',compact('user'));
+  }
+
+  public function onetoone()
+  {
+    $users = User::get();
+    // var_dump($users);die;
+    return view('onetoone', compact('users'));
+  }
+
+  public function onetomany()
+  {
+    $users = User::has('postss')->get();   // kalo has berfungsi untuk menampilkan yang hanya mempunyai post saja
+    // $users = User::with('postss')->get(); //kalo ini menampilkan semua
+    // return $users;
+    dd($users);
+    // var_dump($users);die;
+    return view('onetomany', compact('users'));
+  }
+
+  public function manytoone()
+  {
+    $posts = Post::with('users')->get();
+    return view('manytoone', compact('posts'));
   }
 
   public function detail($id)
