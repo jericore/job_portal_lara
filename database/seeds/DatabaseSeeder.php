@@ -11,8 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      factory('App\User', 20)->create();
-        factory('App\Profile', 20)->create();
+      // factory('App\User', 20)->create();   // ini nanti di unkomen
+        // factory('App\Profile', 20)->create(); //ini nanti di unkomen
+        $this->call(Post_ELOtTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
     }
 }

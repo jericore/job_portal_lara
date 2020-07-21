@@ -11,6 +11,9 @@
 |
 */
 use App\Post;
+use App\Tag;
+use App\Video;
+use App\Comment;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -181,7 +184,7 @@ Route::get('/filter_2', function(){
     ],
   ]);
   $filtered = $collection->filter(function($value,$key){
-    if ($value['User_id'] == 2) {
+    if ($value['User_id'] == 3) {
           return true;
     }
   });
@@ -191,3 +194,28 @@ Route::get('/filter_2', function(){
 Route::get('/onetoone','TaskController@onetoone');
 Route::get('/onetomany','TaskController@onetomany');
 Route::get('/manytoone','TaskController@manytoone');
+Route::get('/tasks', function(){
+  $post = Post::find(2);
+  $post->tagg()->attach(2);
+});
+Route::get('/m2m_fetch_data', 'TaskController@manytomanyfetchdata');
+
+Route::get('polym_relat', function(){
+  // $post = Post::find(2); bisa Post:: dan bisa Video:: kaya dibawah
+  $post = Video::find(2);
+  $comment = new Comment;
+  $comment->body = 'This is 2 Comment';
+  $post->comments()->save($comment);
+
+  // dd($post);
+});
+
+
+//Route Project ----------------------------------------------------------------------------------------
+Route::get('/contacts', 'ContactController@index');
+Route::get('/contacts/create', 'ContactController@create');
+Route::post('/contacts', 'ContactController@store')->name('contact.store');
+Route::get('/contacts/{id}/edit', 'ContactController@edit')->name('contact.edit');
+Route::post('/contacts/{id}/update', 'ContactController@update')->name('contact.update');
+Route::get('/contacts/{id}', 'ContactController@show')->name('contact.show');
+Route::POST('/contacts/{id}/delete', 'ContactController@destroy')->name('contact.destroy');

@@ -9,15 +9,19 @@
 
                 <div class="card-body">
                   <p>{{Auth::user()->name}}</p>
-                  <p>{{Auth::user()->profilee->address}}</p>
-                  <?php var_dump($posts); ?>
+                  <p><b>{{Auth::user()->profilee->address}}</b></p>
+                  <p>
                   @foreach($posts as $post)
 
 
-
-                    <p>{{$post->title}}</p>|{{$post->users->name}}
+                    
+                    <p>{{$post->title}}</p>
+                    @foreach ($post->tagg as $item)
+                        {{$item->name}},
+                    @endforeach
                     <hr>
                   @endforeach
+                </p>
                 </div>
             </div>
         </div>

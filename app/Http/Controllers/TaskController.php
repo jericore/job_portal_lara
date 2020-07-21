@@ -34,7 +34,16 @@ class TaskController extends Controller
   public function manytoone()
   {
     $posts = Post::with('users')->get();
+    // return $posts;
+    // dd($posts);die;
     return view('manytoone', compact('posts'));
+  }
+
+  public function manytomanyfetchdata()
+  {
+    $posts = Post::with('tagg')->get();
+    // return $posts;
+    return view('manytomany', compact('posts'));
   }
 
   public function detail($id)
